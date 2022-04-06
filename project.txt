@@ -1,0 +1,41 @@
+create table uom(uom_id int primary key,uom_name varchar(20));
+
+create table products(product_id int primary key,name varchar(20),uom_id int ,price_per_unit int,foreign key(uom_id) references uom(uom_id) on delete cascade);
+
+create table order_details (order_id int ,product_id int ,quantity int,total_price int);
+create table orders(order_id int primary key,customer_name varchar(20),total int,datetime datetime);
+
+
+
+
+
+
+
+
+
+
+
+insert into uom values(1,'each');
+insert into uom values(2,'Kg');
+insert into uom values(3,'lit');
+
+insert into products values(1,'rice',1,45);
+insert into products values(2,'bannana',2,10);
+insert into products values(3,'dry grapes',2,90);
+insert into products values(4,'milk',3,10);
+
+insert into order_details values(1,1,2,90);
+insert into order_details values(2,2,4,180);
+insert into order_details values(3,2,2,20);
+insert into order_details values(4,2,5,450);
+
+insert into orders values(1,'shree',3000,'2021-12-23');
+insert into orders values(2,'nidhi',500,'2021-12-23');
+
+
+1)create trigger tr_ins_onl_rec before insert on products for 
+each row set new.name=upper(new.name);
+2)create trigger tr_ins_onl_nam before insert on orders for 
+each row set new.customer_name=upper(new.customer_name);
+
+
